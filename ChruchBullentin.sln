@@ -5,9 +5,33 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OnionArchitecture", "OnionArchitecture", "{DF8B01D0-EA1A-45C9-B2CC-807BEF06B48D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "OnionArchitecture\Core\Core.csproj", "{A0019770-97B8-414E-8775-A00F74C4978D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C79D2225-BA84-4832-A775-F1CFC7DD0587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "Testing\Core.Test\Core.Test.csproj", "{09169D24-665E-4C52-9569-C64435D9D576}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0019770-97B8-414E-8775-A00F74C4978D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0019770-97B8-414E-8775-A00F74C4978D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0019770-97B8-414E-8775-A00F74C4978D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0019770-97B8-414E-8775-A00F74C4978D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09169D24-665E-4C52-9569-C64435D9D576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09169D24-665E-4C52-9569-C64435D9D576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09169D24-665E-4C52-9569-C64435D9D576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09169D24-665E-4C52-9569-C64435D9D576}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A0019770-97B8-414E-8775-A00F74C4978D} = {DF8B01D0-EA1A-45C9-B2CC-807BEF06B48D}
+		{09169D24-665E-4C52-9569-C64435D9D576} = {C79D2225-BA84-4832-A775-F1CFC7DD0587}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60A986FB-2070-4E58-B1E9-1C61AFEBB98D}

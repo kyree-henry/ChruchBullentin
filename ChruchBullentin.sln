@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScript
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{DA6EC45F-2458-427A-95B5-1AD777EE4E6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "OnionArchitecture\Database\Database.csproj", "{8038D993-3D02-4BD7-AC7B-2CCF78938A1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{09169D24-665E-4C52-9569-C64435D9D576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09169D24-665E-4C52-9569-C64435D9D576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09169D24-665E-4C52-9569-C64435D9D576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8038D993-3D02-4BD7-AC7B-2CCF78938A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8038D993-3D02-4BD7-AC7B-2CCF78938A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8038D993-3D02-4BD7-AC7B-2CCF78938A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8038D993-3D02-4BD7-AC7B-2CCF78938A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A0019770-97B8-414E-8775-A00F74C4978D} = {DF8B01D0-EA1A-45C9-B2CC-807BEF06B48D}
 		{09169D24-665E-4C52-9569-C64435D9D576} = {C79D2225-BA84-4832-A775-F1CFC7DD0587}
+		{8038D993-3D02-4BD7-AC7B-2CCF78938A1B} = {DF8B01D0-EA1A-45C9-B2CC-807BEF06B48D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60A986FB-2070-4E58-B1E9-1C61AFEBB98D}

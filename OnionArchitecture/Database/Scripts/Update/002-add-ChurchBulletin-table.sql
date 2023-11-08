@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].ChurchBulletinItem
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(50) NULL, 
+    [Place] NVARCHAR(50) NULL, 
+    [Date] DATETIME2 NULL
+)

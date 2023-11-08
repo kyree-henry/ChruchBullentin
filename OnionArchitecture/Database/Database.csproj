@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ChruchBulletin.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>ChruchBulletin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\Create\" />
+    <Folder Include="Scripts\Everytime\" />
+    <Folder Include="Scripts\TestData\" />
+    <Folder Include="Scripts\Update\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AliaSQL" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

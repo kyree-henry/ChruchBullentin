@@ -13,6 +13,15 @@ $verbosity = "m"
 
 $build_dir = "$base_dir\build"
 $test_dir = "$build_dir\test"
+
+$aliaSql = "$base_dir\OnionArchitecture\Database\Scripts\AliaSQL.exe"
+$databaseAction = $env:DatabaseAction
+if ([string]::IsNullOrEmpty($databaseAction)) { $databaseAction = "Rebuild"}
+$databaseName = $env:DatabaseName
+if ([string]::IsNullOrEmpty($databaseName)) { $databaseName = $projectName}
+$script:databaseServer = $env:DatabaseServer
+if ([string]::IsNullOrEmpty($script:databaseServer)) { $script:databaseServer = "(LocalDb)\MSSQLLocalDB"}
+$databaseScripts = "$base_dir\OnionArchitecture\Database\Scripts"
     
 if ([string]::IsNullOrEmpty($version)) { $version = "9.9.9"}
 if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
@@ -84,18 +93,22 @@ Function IntegrationTest{
 	}
 }
 
+Function MigrateDatabaseLocal {
+	exec{
+		& $aliaSql $databaseAction $script:databaseServer $databaseName $databaseScripts
+	}
+}
+
 Function PrivateBuild{
 	$sw = [Diagnostics.Stopwatch]::StartNew()
 	Init
 	Compile
 	RunUnitTests
-	
+	MigrateDatabaseLocal
 	$sw.Stop()
 	write-host "Build time: " $sw.Elapsed.ToString()
 }
 
 Function CIBuild{
-	Init
-	Compile
-	RunUnitTests
+	PrivateBuild
 }

@@ -13,7 +13,6 @@
     <Folder Include="Scripts\Create\" />
     <Folder Include="Scripts\Everytime\" />
     <Folder Include="Scripts\TestData\" />
-    <Folder Include="Scripts\Update\" />
   </ItemGroup>
 
   <ItemGroup>

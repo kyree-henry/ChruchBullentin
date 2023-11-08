@@ -4,8 +4,8 @@ $startTime =
 $projectName = "ChruchBullentin"
 $base_dir = resolve-path .\
 $source_dir = "$base_dir"
-$unitTestFolderPath = "$base_dir\Testing"
-$integrationTestProjectPath = "$base_dir\IntegrationTests"
+$testingFolderPath = "$base_dir\Testing"
+$integrationTestProjectPath = "$testingFolderPath\DataAccess.Test"
 $projectConfig = $env:BuildConfiguration
 $framework = "net6.0"
 $version = $env:Version
@@ -57,7 +57,7 @@ Function Compile{
 
 Function RunUnitTests {
     $unitTestProjectPaths = @(
-        "$unitTestFolderPath\Core.Test"
+        "$testingFolderPath\Core.Test"
     )
 
     foreach ($projectPath in $unitTestProjectPaths) {
@@ -105,6 +105,7 @@ Function PrivateBuild{
 	Compile
 	RunUnitTests
 	MigrateDatabaseLocal
+    IntegrationTest
 	$sw.Stop()
 	write-host "Build time: " $sw.Elapsed.ToString()
 }

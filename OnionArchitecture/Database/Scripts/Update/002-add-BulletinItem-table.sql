@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].Bulletin
+﻿CREATE TABLE [dbo].BulletinItem
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [Name] NVARCHAR(50) NULL, 

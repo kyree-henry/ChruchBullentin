@@ -20,7 +20,7 @@ namespace DataAccess.Mapping
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new BulletinMap().Map(modelBuilder);
+            new BulletinItemMap().Map(modelBuilder);
         }
 
         public override string ToString()

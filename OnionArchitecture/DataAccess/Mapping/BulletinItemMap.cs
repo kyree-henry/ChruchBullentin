@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Mapping
 {
-    public class BulletinMap : EntityMapBase<Bulletin>
+    public class BulletinItemMap : EntityMapBase<BulletinItem>
     {
-        protected override void MapMembers(EntityTypeBuilder<Bulletin> modelBuilder)
+        protected override void MapMembers(EntityTypeBuilder<BulletinItem> modelBuilder)
         {
             
         }

@@ -1,6 +1,6 @@
 ﻿namespace ChruchBulletin.Core.Entity
 {
-    public class Bulletin : EntityBase<Bulletin>
+    public class BulletinItem : EntityBase<BulletinItem>
     {
         public override Guid Id { get; set; }
         public string? Name { get; set; }

@@ -4,12 +4,12 @@ using Shouldly;
 
 namespace ChruchBulletin.DataAccess.Test
 {
-    public class BulletinMappingTester
+    public class BulletinItemMappingTester
     {
         [Test]
         public void ShouldMapBulletin()
         {
-            Bulletin? bulletin = new();
+            BulletinItem? bulletin = new();
             bulletin.Name = "Worship service";
             bulletin.Place = "Sanctuary";
             bulletin.Date = new DateTime(2024, 1, 1);
@@ -20,10 +20,10 @@ namespace ChruchBulletin.DataAccess.Test
                 dbContext.SaveChanges();
             }
 
-            Bulletin? rehydratedEntity;
+            BulletinItem? rehydratedEntity;
             using (DataContext dbContext = new(new TestDataConfiguration()))
             {
-                rehydratedEntity = dbContext.Set<Bulletin>().Single(b => b == bulletin);
+                rehydratedEntity = dbContext.Set<BulletinItem>().Single(b => b == bulletin);
             }
 
             //rehydratedEntity.ShouldBe(bulletin);

@@ -15,20 +15,30 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: PowerShell@2
+  displayName: Build.ps1
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
+    targetType: filePath
+    filePath: ./build.ps1
+    arguments: '; PrivateBuild'
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results ./build/test/*.trx'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    testResultsFormat: VSTest
+    testResultsFiles: 'build/test/*.trx'
+    mergeTestResults: true
+    testRunTitle: 'CI Tests'
+  continueOnError: true
+  condition: succeededOrFailed()
 
-- task: VSTest@2
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/**/UnitTests/coverage.cobertura.xml'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/UnitTests/coverage.cobertura.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/**/UnitTests/coverage.cobertura.xml copy'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/IntegrationTests/coverage.cobertura.xml'

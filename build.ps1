@@ -4,8 +4,8 @@ $startTime =
 $projectName = "ChruchBullentin"
 $base_dir = resolve-path .\
 $source_dir = "$base_dir"
-$unitTestFolderPath = "$base_dir\Testing"
-$integrationTestProjectPath = "$base_dir\IntegrationTests"
+$testingFolderPath = "$base_dir\Testing"
+$integrationTestProjectPath = "$testingFolderPath\DataAccess.Test"
 $projectConfig = $env:BuildConfiguration
 $framework = "net6.0"
 $version = $env:Version
@@ -13,6 +13,15 @@ $verbosity = "m"
 
 $build_dir = "$base_dir\build"
 $test_dir = "$build_dir\test"
+
+$aliaSql = "$base_dir\OnionArchitecture\Database\Scripts\AliaSQL.exe"
+$databaseAction = $env:DatabaseAction
+if ([string]::IsNullOrEmpty($databaseAction)) { $databaseAction = "Rebuild"}
+$databaseName = $env:DatabaseName
+if ([string]::IsNullOrEmpty($databaseName)) { $databaseName = $projectName}
+$script:databaseServer = $env:DatabaseServer
+if ([string]::IsNullOrEmpty($script:databaseServer)) { $script:databaseServer = "(LocalDb)\MSSQLLocalDB"}
+$databaseScripts = "$base_dir\OnionArchitecture\Database\Scripts"
     
 if ([string]::IsNullOrEmpty($version)) { $version = "9.9.9"}
 if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
@@ -48,7 +57,7 @@ Function Compile{
 
 Function RunUnitTests {
     $unitTestProjectPaths = @(
-        "$unitTestFolderPath\Core.Test"
+        "$testingFolderPath\Core.Test"
     )
 
     foreach ($projectPath in $unitTestProjectPaths) {
@@ -84,18 +93,23 @@ Function IntegrationTest{
 	}
 }
 
+Function MigrateDatabaseLocal {
+	exec{
+		& $aliaSql $databaseAction $script:databaseServer $databaseName $databaseScripts
+	}
+}
+
 Function PrivateBuild{
 	$sw = [Diagnostics.Stopwatch]::StartNew()
 	Init
 	Compile
 	RunUnitTests
-	
+	MigrateDatabaseLocal
+    IntegrationTest
 	$sw.Stop()
 	write-host "Build time: " $sw.Elapsed.ToString()
 }
 
 Function CIBuild{
-	Init
-	Compile
-	RunUnitTests
+	PrivateBuild
 }

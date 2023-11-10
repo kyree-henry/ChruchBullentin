@@ -7,12 +7,23 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>ChruchBulletin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-
     <AssemblyName>ChruchBulletin.$(MSBuildProjectName)</AssemblyName>
+
+    <RootNamespace>ChruchBulletin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
@@ -22,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\OnionArchitecture\Core\Core.csproj" />
+    <ProjectReference Include="..\..\OnionArchitecture\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

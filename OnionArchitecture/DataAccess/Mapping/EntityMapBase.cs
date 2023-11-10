@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace DataAccess.Mapping
+namespace ChruchBulletin.DataAccess.Mapping
 {
     public abstract class EntityMapBase<T> : IEntityFrameWorkMapping where T : EntityBase<T>, new()
     {
@@ -24,7 +24,6 @@ namespace DataAccess.Mapping
         }
 
         protected abstract void MapMembers(EntityTypeBuilder<T> modelBuilder);
-
     }
 
 }

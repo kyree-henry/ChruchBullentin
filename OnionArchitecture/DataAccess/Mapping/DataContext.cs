@@ -1,12 +1,13 @@
 ﻿using ChruchBulletin.Core.Entity;
+using ChruchBulletin.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Mapping
+namespace ChruchBulletin.DataAccess.Mapping
 {
     public class DataContext : DbContext
     {
-        private readonly IDataConfiguration _config;
-        public DataContext(IDataConfiguration config)
+        private readonly IDatabaseConfiguration _config;
+        public DataContext(IDatabaseConfiguration config)
         {
             _config = config;
         }

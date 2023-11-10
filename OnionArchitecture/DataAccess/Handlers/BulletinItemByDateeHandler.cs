@@ -1,12 +1,22 @@
-﻿using ChruchBulletin.Core.Queries;
+﻿using ChruchBulletin.Core.Entity;
+using ChruchBulletin.Core.Queries;
+using ChruchBulletin.DataAccess.Mapping;
 
-namespace ChruchBulletin.DataAccess
+namespace ChruchBulletin.DataAccess.Handlers
 {
-    public class BulletinItemByDateeHandler
+    public class BulletinItemByDateHandler : IBulletinItemByDateHandler
     {
-        public void Handle(BulletinItemByDateAndTimeQuery query)
+        private readonly DataContext _dbContext;
+
+        public BulletinItemByDateHandler(DataContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+
+        public IEnumerable<BulletinItem> Handle(BulletinItemByDateAndTimeQuery query)
+        {
+            IEnumerable<BulletinItem> items = _dbContext.Set<BulletinItem>().Where(item => item.Date == query.TargetDate).AsEnumerable();
+            return items;
         }
     }
 }

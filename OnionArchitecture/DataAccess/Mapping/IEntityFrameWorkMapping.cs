@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Mapping
+namespace ChruchBulletin.DataAccess.Mapping
 {
     public interface IEntityFrameWorkMapping
     {

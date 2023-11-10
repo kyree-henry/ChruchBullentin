@@ -1,5 +1,5 @@
 using ChruchBulletin.Core.Entity;
-using DataAccess.Mapping;
+using Microsoft.EntityFrameworkCore;
 using Shouldly;
 
 namespace ChruchBulletin.DataAccess.Test
@@ -14,19 +14,19 @@ namespace ChruchBulletin.DataAccess.Test
             bulletin.Place = "Sanctuary";
             bulletin.Date = new DateTime(2024, 1, 1);
 
-            using (DataContext dbContext = new(new TestDataConfiguration()))
+            using (DbContext context = TestHost.GetRequiredService<DbContext>())
             {
-                dbContext.Add(bulletin);
-                dbContext.SaveChanges();
+                context.Add(bulletin);
+                context.SaveChanges();
             }
 
             BulletinItem? rehydratedEntity;
-            using (DataContext dbContext = new(new TestDataConfiguration()))
+            using (DbContext context = TestHost.GetRequiredService<DbContext>())
             {
-                rehydratedEntity = dbContext.Set<BulletinItem>().Single(b => b == bulletin);
+                rehydratedEntity = context.Set<BulletinItem>().Single(b => b == bulletin);
             }
 
-            //rehydratedEntity.ShouldBe(bulletin);
+            rehydratedEntity.ShouldBe(bulletin);
             rehydratedEntity?.Id.ShouldBe(bulletin.Id);
             rehydratedEntity?.Name.ShouldBe(bulletin.Name);
             rehydratedEntity?.Date.ShouldBe(bulletin.Date);

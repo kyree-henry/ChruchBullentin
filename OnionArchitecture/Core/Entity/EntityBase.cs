@@ -4,7 +4,7 @@
     {
         public abstract Guid Id { get; set; }
 
-        public bool Equals(T other)
+        public bool Equals(T? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -17,7 +17,8 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals (this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return base.Equals((T)obj);
+
+            return Equals((T)obj);
         }
 
         public T GetIdClone() => new() { Id = Id };

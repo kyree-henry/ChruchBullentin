@@ -1,10 +1,4 @@
-﻿using ChruchBulletin.DataAccess.Test;
-using Microsoft.Extensions.Configuration;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using Shouldly;
-
-namespace AcceptanceTests.Counter
+﻿namespace ChruchBulletin.AcceptanceTests.Counter
 {
     public class CounterIncrementsTester
     {
@@ -14,12 +8,12 @@ namespace AcceptanceTests.Counter
         [SetUp]
         public void Setup()
         {
-            var configuration = TestHost.GetRequiredService<IConfiguration>();
+            IConfiguration? configuration = TestHost.GetRequiredService<IConfiguration>();
             _testDriver = new TestDriver(configuration);
             _driver = _testDriver.GetDriver();
         }
 
-        [TearDown]
+        [TearDownAttribute]
         public void Teardown()
         {
             _testDriver.Dispose();
@@ -32,16 +26,16 @@ namespace AcceptanceTests.Counter
         public void ShouldIncrementOnPress(int numberOfButtonPresses, int expectedFinalCount)
         {
             //arrange
-            var hostAddress = "https://localhost:44329"; //these environmental keys get refactored out
+            string? hostAddress = "https://localhost:7022"; //these environmental keys get refactored out
             _driver.Navigate().GoToUrl($"{hostAddress}/counter");
-            var xPathForButton = By.CssSelector("button[ref='clickMeButton2']");
+            By? xPathForButton = By.CssSelector("button[ref='clickMeButton2']");
 
             //wait unitl screen comes up
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            var counterButton = wait.Until(driver => driver.FindElement(xPathForButton));
+            WebDriverWait? wait = new(_driver, TimeSpan.FromSeconds(5));
+            IWebElement? counterButton = wait.Until(driver => driver.FindElement(xPathForButton));
             _testDriver.TakeScreenshot(10, TestContext.CurrentContext.Test.FullName, "Arrange");
 
-            var currentCountElement = _driver.FindElement(
+            IWebElement? currentCountElement = _driver.FindElement(
                 By.CssSelector("#app > div > main > article > p"));
             currentCountElement.Text.ShouldContain("0");
 

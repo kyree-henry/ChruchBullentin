@@ -3,10 +3,10 @@
 $startTime = 
 $projectName = "ChruchBullentin"
 $base_dir = resolve-path .\
-$source_dir = "$base_dir"
 $testingFolderPath = "$base_dir\Testing"
 $integrationTestProjectPath = "$testingFolderPath\DataAccess.Test"
-$acceptanceTestProjectPath = "$source_dir\AcceptanceTests"
+$acceptanceTestProjectPath = "$testingFolderPath\AcceptanceTests"
+$uiProjectPath = "$base_dir\Frontend\WebBlaze\Server"
 $databaseProjectPath = "$base_dir\OnionArchitecture\Database"
 $projectConfig = $env:BuildConfiguration
 $framework = "net6.0"
@@ -23,7 +23,7 @@ $databaseName = $env:DatabaseName
 if ([string]::IsNullOrEmpty($databaseName)) { $databaseName = $projectName}
 $script:databaseServer = $env:DatabaseServer
 if ([string]::IsNullOrEmpty($script:databaseServer)) { $script:databaseServer = "(LocalDb)\MSSQLLocalDB"}
-$databaseScripts = "$base_dir\Scripts"
+$databaseScripts = "$databaseProjectPath\Scripts"
     
 if ([string]::IsNullOrEmpty($version)) { $version = "9.9.9"}
 if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
@@ -95,7 +95,7 @@ Function IntegrationTest{
 }
 
 Function AcceptanceTest{
-	$serverProcess = Start-Process dotnet.exe "run --project $base_dir\Frontend\WebBlaze.Server\WebBlaze.Server.csproj --configuration $projectConfig -nologo --no-restore --no-build -v $verbosity" -PassThru
+	$serverProcess = Start-Process dotnet.exe "run --project $base_dir\Frontend\WebBlaze\Server\WebBlaze.Server.csproj --configuration $projectConfig -nologo --no-restore --no-build -v $verbosity" -PassThru
 	Start-Sleep 1 #let the server process spin up for 1 second
 
 	Push-Location -Path $acceptanceTestProjectPath
@@ -125,7 +125,7 @@ Function PackageUI {
         & dotnet publish $uiProjectPath -nologo --no-restore --no-build -v $verbosity --configuration $projectConfig
     }
 	exec{
-		& dotnet-octo pack --id "$projectName.UI" --version $version --basePath $uiProjectPath\bin\$projectConfig\$framework\publish --outFolder $build_dir --overwrite
+		& dotnet-octo pack --id "$projectName.WebBlaze" --version $version --basePath $uiProjectPath\bin\$projectConfig\$framework\publish --outFolder $build_dir --overwrite
 	}
 }
 
@@ -158,9 +158,10 @@ Function PrivateBuild{
 	$sw = [Diagnostics.Stopwatch]::StartNew()
 	Init
 	Compile
-	RunUnitTests
+	UnitTests
 	MigrateDatabaseLocal
-    IntegrationTest
+	IntegrationTest
+	# AcceptanceTest
 	$sw.Stop()
 	write-host "Build time: " $sw.Elapsed.ToString()
 }

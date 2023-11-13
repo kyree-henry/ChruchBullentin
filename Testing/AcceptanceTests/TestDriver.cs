@@ -1,8 +1,4 @@
-using Microsoft.Extensions.Configuration;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-
-namespace AcceptanceTests
+namespace ChruchBulletin.AcceptanceTests
 {
     public class TestDriver : IDisposable
     {

@@ -1,21 +1,11 @@
-using ChruchBulletin.Core.Queries;
-using ChruchBulletin.DataAccess;
-using ChruchBulletin.DataAccess.Handlers;
-using ChruchBulletin.DataAccess.Mapping;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IBulletinItemByDateHandler, BulletinItemByDateHandler>();
-builder.Services.AddScoped<DbContext, DataContext>();
-builder.Services.AddDbContextFactory<DataContext>();
-builder.Services.AddDbContextFactory<DbContext>();
-builder.Services.AddTransient<IDatabaseConfiguration, DatabaseConfiguration>();
+builder.Host.UseLamar(registry => { registry.IncludeRegistry<DependencyInjection>(); });
+
 
 var app = builder.Build();
 
@@ -38,9 +28,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapControllers();
+    endpoints.MapFallbackToFile("index.html");
+    endpoints.MapHealthChecks("_healthcheck");
+});
 
-app.MapRazorPages();
-app.MapControllers();
-app.MapFallbackToFile("index.html");
+await app.Services.GetRequiredService<HealthCheckService>().CheckHealthAsync();
 
 app.Run();

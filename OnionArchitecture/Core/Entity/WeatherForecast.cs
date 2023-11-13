@@ -1,4 +1,4 @@
-namespace ChruchBulletin.WebBlaze.Shared
+﻿namespace ChruchBulletin.Core.Entity
 {
     public class WeatherForecast
     {

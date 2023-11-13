@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\APIs\API\API.csproj" />
     <ProjectReference Include="..\..\..\OnionArchitecture\Core\Core.csproj" />
     <ProjectReference Include="..\..\..\OnionArchitecture\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Client\WebBlaze.Client.csproj" />
-    <ProjectReference Include="..\Shared\WebBlaze.Shared.csproj" />
   </ItemGroup>
 
 

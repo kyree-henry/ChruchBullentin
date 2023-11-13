@@ -2,10 +2,10 @@
 using ChruchBulletin.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChruchBulletin.WebBlaze.Server.Controllers
+namespace ChruchBulletin.API.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class BulletinItemController : ControllerBase
     {
         private readonly IBulletinItemByDateHandler _handler;
@@ -18,7 +18,8 @@ namespace ChruchBulletin.WebBlaze.Server.Controllers
         [HttpGet]
         public IEnumerable<BulletinItem> Get()
         {
-            IEnumerable<BulletinItem> items = _handler.Handle(new BulletinItemByDateAndTimeQuery(new DateTime(2000, 1, 1)));
+            IEnumerable<BulletinItem> items = _handler.Handle(
+                new BulletinItemByDateAndTimeQuery(new DateTime(2000, 1, 1)));
             return items;
         }
     }

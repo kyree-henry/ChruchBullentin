@@ -1,7 +1,7 @@
+﻿using ChruchBulletin.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
-using ChruchBulletin.WebBlaze.Shared;
 
-namespace ChruchBulletin.WebBlaze.Server.Controllers
+namespace ChruchBulletin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -9,8 +9,8 @@ namespace ChruchBulletin.WebBlaze.Server.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -28,7 +28,7 @@ namespace ChruchBulletin.WebBlaze.Server.Controllers
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
-            .ToArray();
+                .ToArray();
         }
     }
 }
